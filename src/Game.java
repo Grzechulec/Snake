@@ -15,8 +15,11 @@ public class Game extends Canvas implements Runnable{
 	private Handler handler;
 	
 	public Game() {
-		new Window(WIDTH, HEIGHT, "Snake", this);
 		this.handler = new Handler();
+		new Window(WIDTH, HEIGHT, "Snake", this);
+		
+		handler.addObject(new Tile(16, 16));
+		handler.addObject(new Tile(15, 15));
 	}
 	
 	public synchronized void start() {
@@ -43,7 +46,7 @@ public class Game extends Canvas implements Runnable{
 		int frames = 0;
 		while(running) {
 			long now = System.nanoTime();
-			delta = (now - lastTime) / ns;
+			delta += (now - lastTime) / ns;
 			lastTime = now;
 			while(delta >= 1) {
 				tick();
