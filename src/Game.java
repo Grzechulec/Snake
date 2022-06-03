@@ -19,7 +19,7 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH, HEIGHT, "Snake", this);
 		
 		handler.addObject(new Tile(16, 16));
-		handler.addObject(new Tile(15, 15));
+		handler.addObject(new Snake(20, 20));
 	}
 	
 	public synchronized void start() {
@@ -39,7 +39,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public void run() {
 		long lastTime = System.nanoTime();
-		double amountOfTics = 60.0;
+		double amountOfTics = 5.0;
 		double ns = 1000000000 / amountOfTics;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
