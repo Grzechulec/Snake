@@ -1,15 +1,13 @@
 import java.awt.Graphics;
-import java.util.ArrayList;
 
 public class Snake extends GameObject{
-
-	private ArrayList<Tile> tiles;
-	private int direction;  // 1-down; 2-left; 3-up; 4-right
+	  // 1-down; 2-left; 3-up; 4-right
+	private Handler handler;
 	
-	public Snake(int x, int y, ID id) {
+	public Snake(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
-		tiles = new ArrayList<Tile>();
 		direction = 2;
+		this.handler = handler;
 		this.tiles.add(new Tile(this.x, this.y, ID.PlayerHead));
 		this.tiles.add(new Tile(this.x, this.y+1, ID.Body));
 		this.tiles.add(new Tile(this.x, this.y+2, ID.Body));
@@ -41,6 +39,7 @@ public class Snake extends GameObject{
 		}
 		this.x = this.tiles.get(0).getX();
 		this.y = this.tiles.get(0).getY();
+		handleCollision(collision());
 	}
 
 	public void render(Graphics g) {
@@ -48,6 +47,38 @@ public class Snake extends GameObject{
 		for (GameObject object:tiles) {
             object.render(g);
         }
+	}
+	
+	private GameObject collision() {
+		for (GameObject object:this.handler.objects) {
+			if(object.getX() == x && object.getY() == y && object.getId() != ID.Snake) {
+				System.out.println(object.getId());
+				return object;
+			}
+			for (GameObject object2:object.tiles) {
+				if(object2.getX() == x && object2.getY() == y && object2.getId() == ID.Body) {
+					System.out.println(object2.getId());
+					return object2;
+				}
+			}
+		}
+		return null; 
+	}
+	
+	private void handleCollision(GameObject object) {
+		if (object == null) return;
+		else if (object.getId() == ID.Fruit) grow(object);
+		else if (object.getId() == ID.Body) lose();
+	}
+	
+	private void grow(GameObject object) {
+		this.tiles.add(new Tile(this.x, this.y, ID.Body));
+		handler.removeObject(object);
+		System.out.println("aaaaa");
+	}
+	
+	private void lose() {
+		System.out.println("absd");
 	}
 	
 	public int getDirection() {
