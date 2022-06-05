@@ -6,15 +6,15 @@ public class Snake extends GameObject{
 	private ArrayList<Tile> tiles;
 	private int direction;  // 1-down; 2-left; 3-up; 4-right
 	
-	public Snake(int x, int y) {
-		super(x, y);
+	public Snake(int x, int y, ID id) {
+		super(x, y, id);
 		tiles = new ArrayList<Tile>();
 		direction = 2;
-		this.tiles.add(new Tile(this.x, this.y));
-		this.tiles.add(new Tile(this.x, this.y+1));
-		this.tiles.add(new Tile(this.x, this.y+2));
-		this.tiles.add(new Tile(this.x, this.y+3));
-		this.tiles.add(new Tile(this.x, this.y+4));
+		this.tiles.add(new Tile(this.x, this.y, ID.PlayerHead));
+		this.tiles.add(new Tile(this.x, this.y+1, ID.Body));
+		this.tiles.add(new Tile(this.x, this.y+2, ID.Body));
+		this.tiles.add(new Tile(this.x, this.y+3, ID.Body));
+		this.tiles.add(new Tile(this.x, this.y+4, ID.Body));
 	}
 
 	public void tick() {
@@ -49,5 +49,12 @@ public class Snake extends GameObject{
             object.render(g);
         }
 	}
-
+	
+	public int getDirection() {
+		return this.direction;
+	}
+	
+	public void setDireciton(int direction) {
+		this.direction = direction;
+	}
 }
