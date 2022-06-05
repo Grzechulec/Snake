@@ -52,12 +52,10 @@ public class Snake extends GameObject{
 	private GameObject collision() {
 		for (GameObject object:this.handler.objects) {
 			if(object.getX() == x && object.getY() == y && object.getId() != ID.Snake) {
-				System.out.println(object.getId());
 				return object;
 			}
 			for (GameObject object2:object.tiles) {
-				if(object2.getX() == x && object2.getY() == y && object2.getId() == ID.Body) {
-					System.out.println(object2.getId());
+				if(object2.getX() == x && object2.getY() == y && object2.getId() != ID.PlayerHead) {
 					return object2;
 				}
 			}
@@ -66,7 +64,9 @@ public class Snake extends GameObject{
 	}
 	
 	private void handleCollision(GameObject object) {
-		if (object == null) return;
+		if (this.getX() > 38 || this.getX() < 0) lose();
+		else if (this.getY() > 27 || this.getY() < 0) lose();
+		else if (object == null) return;
 		else if (object.getId() == ID.Fruit) grow(object);
 		else if (object.getId() == ID.Body) lose();
 	}
@@ -74,11 +74,10 @@ public class Snake extends GameObject{
 	private void grow(GameObject object) {
 		this.tiles.add(new Tile(this.x, this.y, ID.Body));
 		handler.removeObject(object);
-		System.out.println("aaaaa");
 	}
 	
 	private void lose() {
-		System.out.println("absd");
+		System.out.println("rip");
 	}
 	
 	public int getDirection() {
