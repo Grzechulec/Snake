@@ -16,6 +16,7 @@ public class Tile extends GameObject {
 	public void render(Graphics g) {
 		if (this.id == ID.Body) g.setColor(Color.white);
 		else if (this.id == ID.PlayerHead)g.setColor(Color.green);
+		else if (this.id == ID.EnemyHead)g.setColor(Color.red);
 		g.fillRect(x*tileSize, y*tileSize, tileSize, tileSize);
 	}
 

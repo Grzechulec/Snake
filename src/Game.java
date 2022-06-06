@@ -13,15 +13,23 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running = false;
 	private Handler handler;
+	private FoodGenerator generator;
 	
 	public Game() {
 		this.handler = new Handler();
+		this.generator = new FoodGenerator(this.handler);
 		new Window(WIDTH, HEIGHT, "Snake", this);
 		this.addKeyListener(new KeyInput(handler));
 		
-		handler.addObject(new Snake(20, 20, ID.Snake, handler));
+		handler.addObject(new Snake(20, 20, ID.Snake, ID.PlayerHead, handler));
 		handler.addObject(new Fruit(24, 24, ID.Fruit));
-		handler.addObject(new Frog(30, 20, ID.Frog, handler));
+		handler.addObject(new Fruit(10, 20, ID.Fruit));
+		handler.addObject(new Fruit(10, 10, ID.Fruit));
+		handler.addObject(new Frog(10, 20, ID.Frog, handler));
+		handler.addObject(new Enemy(15, 10, ID.EnemySnake, ID.EnemyHead, handler));
+		handler.addObject(new Fruit(25, 25, ID.Fruit));
+
+		//generator.handleFood();
 	}
 	
 	public synchronized void start() {
@@ -60,7 +68,7 @@ public class Game extends Canvas implements Runnable{
 			frames++;
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println("FPS= " + frames);
+				//System.out.println("FPS= " + frames);
 				frames = 0;
 			}
 		}
@@ -68,6 +76,7 @@ public class Game extends Canvas implements Runnable{
 	
 	private void tick() {
 		this.handler.tick();
+		generator.handleFood();
 	}
 	
 	private void render() {
@@ -79,8 +88,10 @@ public class Game extends Canvas implements Runnable{
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.black);
+		g.setColor(Color.darkGray);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.setColor(Color.black);
+		g.fillRect(16, 16, 16*25, 16*25);
 		
 		this.handler.render(g);
 		

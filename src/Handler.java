@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Handler {
 
 	ArrayList<GameObject> objects = new ArrayList<GameObject>();
+	//private FoodGenerator generator = new
 	
 	public void tick() {
 //		for (GameObject object:objects) {

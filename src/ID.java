@@ -5,5 +5,6 @@ public enum ID {
 	EnemyHead(),
 	Fruit(),
 	Frog(),
-	Snake();
+	Snake(),
+	EnemySnake();
 }
