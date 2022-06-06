@@ -7,6 +7,7 @@ public abstract class GameObject {
 	protected ID id;
 	protected int direction = 0;
 	protected ArrayList<GameObject> tiles;
+	protected int previousDirection = 0;
 	
 	public GameObject(int x, int y, ID id) {
 		this.x = x;
@@ -49,5 +50,9 @@ public abstract class GameObject {
 	public void setDirection(int direction) {
 		this.direction = direction;
 	}	
+	
+	public int getPreviousDirection() {
+		return previousDirection;
+	}
 	
 }

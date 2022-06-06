@@ -40,6 +40,7 @@ public class Snake extends GameObject{
 		this.x = this.tiles.get(0).getX();
 		this.y = this.tiles.get(0).getY();
 		handleCollision(collision());
+		this.previousDirection = this.getDirection();
 	}
 
 	public void render(Graphics g) {

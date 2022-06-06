@@ -20,7 +20,6 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(new KeyInput(handler));
 		
 		handler.addObject(new Snake(20, 20, ID.Snake, handler));
-		handler.addObject(new Tile(25, 25, ID.Body));
 		handler.addObject(new Fruit(24, 24, ID.Fruit));
 		handler.addObject(new Frog(30, 20, ID.Frog, handler));
 	}
@@ -61,7 +60,7 @@ public class Game extends Canvas implements Runnable{
 			frames++;
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				//System.out.println("FPS= " + frames);
+				System.out.println("FPS= " + frames);
 				frames = 0;
 			}
 		}

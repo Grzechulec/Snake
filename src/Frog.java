@@ -17,7 +17,6 @@ public class Frog extends GameObject{
 		count++;
 		if (count == interval) {
 			ai();
-			System.out.println(this.getDirection());
 			switch(this.direction) {
 			case 1:
 				this.setY(this.getY()+1);
@@ -112,7 +111,6 @@ public class Frog extends GameObject{
 		distances.add(getDistanceRight());
 		distances.add(getDistanceDown());
 		distances.add(getDistanceLeft());
-		System.out.println(distances);
 		for(int i = 0; i < 4; i++) {
 			if (distances.get(i) < min_value) {
 				min_value = distances.get(i);
