@@ -40,7 +40,7 @@ public class Frog extends GameObject{
 
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
-		g.setColor(Color.GREEN);
+		g.setColor(new Color(0, 100, 0));
 		g.fillRect(x*16, y*16, 16, 16);
 	}
 	

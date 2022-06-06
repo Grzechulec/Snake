@@ -20,12 +20,20 @@ public class FoodGenerator {
 	private void addFruit() {
 		int randX = generator.nextInt(25)+1;
 		int randY = generator.nextInt(25)+1;
+		while(!spaceValidation(randX, randY)) {
+			randX = generator.nextInt(25)+1;
+			randY = generator.nextInt(25)+1;
+		}
 		handler.addObject(new Fruit(randX, randY, ID.Fruit));
 	}
 	
 	private void addFrog() {
 		int randX = generator.nextInt(25)+1;
 		int randY = generator.nextInt(25)+1;
+		while(!spaceValidation(randX, randY)) {
+			randX = generator.nextInt(25)+1;
+			randY = generator.nextInt(25)+1;
+		}
 		handler.addObject(new Frog(randX, randY, ID.Frog, handler));
 	}
 	
@@ -43,5 +51,19 @@ public class FoodGenerator {
 			if(object.getId() == ID.Frog) frogAmount++;
 		}
 		return frogAmount;
+	}
+	
+	private boolean spaceValidation(int randX, int randY) {
+		for (GameObject object:handler.objects) {
+			if (object.getX() == randX && object.getY() == randY) {
+				return false;
+			}
+			for(GameObject tile:object.tiles) {
+				if (tile.getX() == randX && tile.getY() == randY) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 }

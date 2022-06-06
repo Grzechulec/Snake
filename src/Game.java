@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH, HEIGHT, "Snake", this);
 		this.addKeyListener(new KeyInput(handler));
 		
-		//handler.addObject(new Snake(20, 20, ID.Snake, ID.PlayerHead, handler));
+		handler.addObject(new Snake(20, 20, ID.Snake, ID.PlayerHead, handler));
 		handler.addObject(new Enemy(15, 10, ID.EnemySnake, ID.EnemyHead, handler));
 
 

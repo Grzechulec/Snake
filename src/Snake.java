@@ -1,18 +1,22 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Snake extends GameObject{
 	  // 1-down; 2-left; 3-up; 4-right
 	private Handler handler;
+	private Color c;
 	
 	public Snake(int x, int y, ID id, ID player, Handler handler) {
 		super(x, y, id);
 		direction = 3;
+		c = new Color(0, 180, 0);
+		if (player == ID.EnemyHead) c = new Color(180, 0, 0);
 		this.handler = handler;
 		this.tiles.add(new Tile(this.x, this.y, player));
-		this.tiles.add(new Tile(this.x, this.y+1, ID.Body));
-		this.tiles.add(new Tile(this.x, this.y+2, ID.Body));
-		this.tiles.add(new Tile(this.x, this.y+3, ID.Body));
-		this.tiles.add(new Tile(this.x, this.y+4, ID.Body));
+		this.tiles.add(new Tile(this.x, this.y+1, ID.Body, c));
+		this.tiles.add(new Tile(this.x, this.y+2, ID.Body, c));
+		this.tiles.add(new Tile(this.x, this.y+3, ID.Body, c));
+		this.tiles.add(new Tile(this.x, this.y+4, ID.Body, c));
 	}
 
 	public void tick() {
@@ -74,7 +78,7 @@ public class Snake extends GameObject{
 	}
 	
 	private void grow(GameObject object) {
-		this.tiles.add(new Tile(-1, -1, ID.Body));
+		this.tiles.add(new Tile(-1, -1, ID.Body, c));
 		handler.removeObject(object);
 	}
 	
