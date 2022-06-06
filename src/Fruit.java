@@ -13,7 +13,6 @@ public class Fruit extends GameObject{
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

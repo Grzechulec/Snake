@@ -55,7 +55,7 @@ public class Snake extends GameObject{
 				return object;
 			}
 			for (GameObject object2:object.tiles) {
-				if(object2.getX() == x && object2.getY() == y && object2.getId() != ID.PlayerHead) {
+				if(object2.getX() == x && object2.getY() == y && object2.getId() == ID.Body) {
 					return object2;
 				}
 			}
@@ -68,11 +68,12 @@ public class Snake extends GameObject{
 		else if (this.getY() > 27 || this.getY() < 0) lose();
 		else if (object == null) return;
 		else if (object.getId() == ID.Fruit) grow(object);
+		else if (object.getId() == ID.Frog) grow(object);
 		else if (object.getId() == ID.Body) lose();
 	}
 	
 	private void grow(GameObject object) {
-		this.tiles.add(new Tile(this.x, this.y, ID.Body));
+		this.tiles.add(new Tile(-1, -1, ID.Body));
 		handler.removeObject(object);
 	}
 	

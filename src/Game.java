@@ -20,7 +20,9 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(new KeyInput(handler));
 		
 		handler.addObject(new Snake(20, 20, ID.Snake, handler));
-		handler.addObject(new Fruit(25, 25, ID.Fruit));
+		handler.addObject(new Tile(25, 25, ID.Body));
+		handler.addObject(new Fruit(24, 24, ID.Fruit));
+		handler.addObject(new Frog(30, 20, ID.Frog));
 	}
 	
 	public synchronized void start() {

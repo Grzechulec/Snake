@@ -6,9 +6,12 @@ public class Handler {
 	ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	
 	public void tick() {
-		for (GameObject object:objects) {
-            object.tick();
-        }
+//		for (GameObject object:objects) {
+//            object.tick();
+//        }
+		for (int i=0; i<objects.size(); i++) {
+			objects.get(i).tick();
+		}
 	}
 	
 	public void render(Graphics g) {
@@ -22,6 +25,6 @@ public class Handler {
 	}
 	
 	public void removeObject(GameObject object) {
-		this.objects.remove(object);
+		this.objects.removeIf(n -> n == object);
 	}
 }
