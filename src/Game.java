@@ -21,13 +21,9 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH, HEIGHT, "Snake", this);
 		this.addKeyListener(new KeyInput(handler));
 		
-		handler.addObject(new Snake(20, 20, ID.Snake, ID.PlayerHead, handler));
-		handler.addObject(new Fruit(24, 24, ID.Fruit));
-		handler.addObject(new Fruit(10, 20, ID.Fruit));
-		handler.addObject(new Fruit(10, 10, ID.Fruit));
-		handler.addObject(new Frog(10, 20, ID.Frog, handler));
+		//handler.addObject(new Snake(20, 20, ID.Snake, ID.PlayerHead, handler));
 		handler.addObject(new Enemy(15, 10, ID.EnemySnake, ID.EnemyHead, handler));
-		handler.addObject(new Fruit(25, 25, ID.Fruit));
+
 
 		//generator.handleFood();
 	}
@@ -68,7 +64,7 @@ public class Game extends Canvas implements Runnable{
 			frames++;
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				//System.out.println("FPS= " + frames);
+				System.out.println("FPS= " + frames);
 				frames = 0;
 			}
 		}

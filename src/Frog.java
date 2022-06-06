@@ -111,7 +111,6 @@ public class Frog extends GameObject{
 		distances.add(getDistanceRight());
 		distances.add(getDistanceDown());
 		distances.add(getDistanceLeft());
-		System.out.println(getDistanceUp());
 		for(int i = 0; i < 4; i++) {
 			if (distances.get(i) < min_value) {
 				min_value = distances.get(i);
