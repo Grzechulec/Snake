@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
+
 public class Snake extends GameObject{
 	  // 1-down; 2-left; 3-up; 4-right
 	private Handler handler;
@@ -84,6 +85,10 @@ public class Snake extends GameObject{
 	
 	private void lose() {
 		System.out.println("rip");
+		if (this.getId() == ID.EnemySnake)
+			this.handler.removeObject(this);
+		else
+			this.handler.getGame().gameState = GameState.GameOver;
 	}
 
 }

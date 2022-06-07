@@ -2,9 +2,13 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class Handler {
-
+	
+	private Game game;
 	ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	//private FoodGenerator generator = new
+	public Handler(Game game) {
+		this.game = game;
+	}
 	
 	public void tick() {
 //		for (GameObject object:objects) {
@@ -28,4 +32,9 @@ public class Handler {
 	public void removeObject(GameObject object) {
 		this.objects.removeIf(n -> n == object);
 	}
+
+	public Game getGame() {
+		return this.game;
+	}
 }
+

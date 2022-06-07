@@ -1,5 +1,6 @@
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -14,16 +15,18 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	private Handler handler;
 	private FoodGenerator generator;
+	public GameState gameState = GameState.Game;
 	
 	public Game() {
-		this.handler = new Handler();
+		this.handler = new Handler(this);
 		this.generator = new FoodGenerator(this.handler);
 		new Window(WIDTH, HEIGHT, "Snake", this);
 		this.addKeyListener(new KeyInput(handler));
 		
-		handler.addObject(new Snake(20, 20, ID.Snake, ID.PlayerHead, handler));
-		handler.addObject(new Enemy(15, 10, ID.EnemySnake, ID.EnemyHead, handler));
-
+		if(gameState == GameState.Game) {
+			handler.addObject(new Snake(20, 20, ID.Snake, ID.PlayerHead, handler));
+			handler.addObject(new Enemy(15, 10, ID.EnemySnake, ID.EnemyHead, handler));
+		}
 
 		//generator.handleFood();
 	}
@@ -71,8 +74,10 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void tick() {
-		this.handler.tick();
-		generator.handleFood();
+		if(gameState == GameState.Game) {
+			generator.handleFood();
+			this.handler.tick();
+		}
 	}
 	
 	private void render() {
@@ -84,13 +89,21 @@ public class Game extends Canvas implements Runnable{
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.darkGray);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
-		g.setColor(Color.black);
-		g.fillRect(16, 16, 16*25, 16*25);
-		
+		if (gameState == GameState.Game) {
+			g.setColor(Color.darkGray);
+			g.fillRect(0, 0, WIDTH, HEIGHT);
+			g.setColor(Color.black);
+			g.fillRect(16, 16, 16*25, 16*25);
+		}
 		this.handler.render(g);
-		
+		if (gameState == GameState.GameOver) {
+			g.setColor(new Color(0, 0, 0, 150));
+			g.fillRect(16, 16, 16*25, 16*25);
+			g.setColor(Color.white);
+			g.setFont(new Font("TimesRoman", Font.PLAIN, 70));
+			g.drawString("Game over", 40, 150);
+		}
+				
 		g.dispose();
 		bs.show();
 	}
