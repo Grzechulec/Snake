@@ -29,6 +29,7 @@ public class Game extends Canvas implements Runnable{
 		this.generator = new FoodGenerator(this.handler);
 		new Window(WIDTH, HEIGHT, "Snake", this);
 		this.addKeyListener(new KeyInput(handler));
+		this.addMouseListener(new MouseInput(handler));
 		this.file = "src/aaa.txt";
 		Path path = Path.of(file);
 		String score;
@@ -129,6 +130,10 @@ public class Game extends Canvas implements Runnable{
 			g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
 			g.drawString("Score: " + Integer.toString(this.handler.length), 450, 50);
 			g.drawString("Highscore: " + Integer.toString(this.highscore), 430, 150);
+			g.setColor(Color.gray);
+			g.fillRect(460, 300, 120, 50);
+			g.setColor(Color.black);
+			g.drawString("Reset", 480, 335);
 
 		}
 		this.handler.render(g);

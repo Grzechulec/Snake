@@ -23,5 +23,6 @@ public class KeyInput extends KeyAdapter{
 			}
 		}
 		if (k == KeyEvent.VK_R) this.handler.getGame().startNewGame();
+		//if (k == KeyEvent.VK)
 	}
 }
