@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable{
 		
 		if(gameState == GameState.Game) {
 			handler.addObject(new Snake(20, 20, ID.Snake, ID.PlayerHead, handler));
-			handler.addObject(new Enemy(15, 10, ID.EnemySnake, ID.EnemyHead, handler));
+			handler.addObject(new Enemy(5, 20, ID.EnemySnake, ID.EnemyHead, handler));
 		}
 
 		//generator.handleFood();
@@ -84,7 +84,7 @@ public class Game extends Canvas implements Runnable{
 			frames++;
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println("FPS= " + this.highscore);
+				System.out.println("FPS= " + frames);
 				frames = 0;
 			}
 		}
@@ -143,6 +143,15 @@ public class Game extends Canvas implements Runnable{
 				
 		g.dispose();
 		bs.show();
+	}
+	
+	public void startNewGame() {
+		this.gameState = GameState.Game;
+		while (!this.handler.objects.isEmpty()) {
+			this.handler.removeObject(this.handler.objects.get(0));
+		}
+		handler.addObject(new Snake(20, 20, ID.Snake, ID.PlayerHead, handler));
+		handler.addObject(new Enemy(5, 20, ID.EnemySnake, ID.EnemyHead, handler));
 	}
 	
 	public static void main(String[] args) {
