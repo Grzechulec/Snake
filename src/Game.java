@@ -3,9 +3,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.io.File;
-import java.io.FileReader;
-import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Game extends Canvas implements Runnable{
 
@@ -19,18 +21,24 @@ public class Game extends Canvas implements Runnable{
 	private Handler handler;
 	private FoodGenerator generator;
 	private int highscore;
-	private File file;
+	private String file;
 	public GameState gameState = GameState.Game;
 	
-	public Game() {
+	public Game(){
 		this.handler = new Handler(this);
 		this.generator = new FoodGenerator(this.handler);
 		new Window(WIDTH, HEIGHT, "Snake", this);
-		String path = System.getProperty("user.home");
-		System.out.println(path);
 		this.addKeyListener(new KeyInput(handler));
-		this.file = new File(path);
-		//FileReader reader = new FileReader(file);
+		this.file = "src/aaa.txt";
+		Path path = Path.of(file);
+		String score;
+		try {
+			score = Files.readString(path);
+			this.highscore = Integer.valueOf(score);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if(gameState == GameState.Game) {
 			handler.addObject(new Snake(20, 20, ID.Snake, ID.PlayerHead, handler));
@@ -76,7 +84,7 @@ public class Game extends Canvas implements Runnable{
 			frames++;
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println("FPS= " + frames);
+				System.out.println("FPS= " + this.highscore);
 				frames = 0;
 			}
 		}
@@ -90,8 +98,15 @@ public class Game extends Canvas implements Runnable{
 		if(gameState == GameState.GameOver) {
 			if (this.handler.length > highscore) {
 				highscore = this.handler.length;
-				//FileWriter writer = new FileWriter("highscore.txt");
-				//writer.write(highscore);
+				try {
+					FileWriter writer = new FileWriter("src/aaa.txt");
+					PrintWriter print = new PrintWriter(writer);
+					print.print(Integer.valueOf(highscore));
+					print.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -113,7 +128,7 @@ public class Game extends Canvas implements Runnable{
 			g.setColor(Color.white);
 			g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
 			g.drawString("Score: " + Integer.toString(this.handler.length), 450, 50);
-			g.drawString("Highscore: " + Integer.toString(this.handler.length), 430, 150);
+			g.drawString("Highscore: " + Integer.toString(this.highscore), 430, 150);
 
 		}
 		this.handler.render(g);
