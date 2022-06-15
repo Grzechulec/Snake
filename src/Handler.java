@@ -5,15 +5,12 @@ public class Handler {
 	
 	private Game game;
 	ArrayList<GameObject> objects = new ArrayList<GameObject>();
-	//private FoodGenerator generator = new
+	public int length;
 	public Handler(Game game) {
 		this.game = game;
 	}
 	
 	public void tick() {
-//		for (GameObject object:objects) {
-//            object.tick();
-//        }
 		for (int i=0; i<objects.size(); i++) {
 			objects.get(i).tick();
 		}

@@ -46,6 +46,7 @@ public class Snake extends GameObject{
 		this.y = this.tiles.get(0).getY();
 		handleCollision(collision());
 		this.previousDirection = this.getDirection();
+		if (this.getId() == ID.Snake) this.handler.length = this.tiles.size();
 	}
 
 	public void render(Graphics g) {

@@ -3,6 +3,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+import java.io.FileReader;
+import java.util.Scanner;
 
 public class Game extends Canvas implements Runnable{
 
@@ -15,13 +18,19 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	private Handler handler;
 	private FoodGenerator generator;
+	private int highscore;
+	private File file;
 	public GameState gameState = GameState.Game;
 	
 	public Game() {
 		this.handler = new Handler(this);
 		this.generator = new FoodGenerator(this.handler);
 		new Window(WIDTH, HEIGHT, "Snake", this);
+		String path = System.getProperty("user.home");
+		System.out.println(path);
 		this.addKeyListener(new KeyInput(handler));
+		this.file = new File(path);
+		//FileReader reader = new FileReader(file);
 		
 		if(gameState == GameState.Game) {
 			handler.addObject(new Snake(20, 20, ID.Snake, ID.PlayerHead, handler));
@@ -78,6 +87,13 @@ public class Game extends Canvas implements Runnable{
 			generator.handleFood();
 			this.handler.tick();
 		}
+		if(gameState == GameState.GameOver) {
+			if (this.handler.length > highscore) {
+				highscore = this.handler.length;
+				//FileWriter writer = new FileWriter("highscore.txt");
+				//writer.write(highscore);
+			}
+		}
 	}
 	
 	private void render() {
@@ -94,6 +110,11 @@ public class Game extends Canvas implements Runnable{
 			g.fillRect(0, 0, WIDTH, HEIGHT);
 			g.setColor(Color.black);
 			g.fillRect(16, 16, 16*25, 16*25);
+			g.setColor(Color.white);
+			g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+			g.drawString("Score: " + Integer.toString(this.handler.length), 450, 50);
+			g.drawString("Highscore: " + Integer.toString(this.handler.length), 430, 150);
+
 		}
 		this.handler.render(g);
 		if (gameState == GameState.GameOver) {
@@ -102,6 +123,7 @@ public class Game extends Canvas implements Runnable{
 			g.setColor(Color.white);
 			g.setFont(new Font("TimesRoman", Font.PLAIN, 70));
 			g.drawString("Game over", 40, 150);
+			g.drawString("Score: " + Integer.toString(this.handler.length), 90, 250);
 		}
 				
 		g.dispose();
