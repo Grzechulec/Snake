@@ -1,7 +1,11 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
-
+/**
+ * This class describes frog and its behavior.
+ * Frog makes a move after every 3 ticks.
+ * Frog makes a move in the opposite direction to the nearest GameObject or wall
+ */
 public class Frog extends GameObject{
 
 	final int interval = 3;
@@ -103,7 +107,9 @@ public class Frog extends GameObject{
 		}	
 		return distance;
 	}
-	
+	/**
+	 * Method setting frogs direction
+	 */
 	private void ai() {
 		int min_value = 1000;
 		LinkedList<Integer> distances = new LinkedList<Integer>();

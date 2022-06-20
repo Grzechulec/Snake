@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
+/**
+ * Class describing a game
+ * It contains all the essential parts of the game like for example a game loop
+ */
 public class Game extends Canvas implements Runnable{
 
 	private static final long serialVersionUID = -1442798787354930462L;
@@ -48,13 +51,17 @@ public class Game extends Canvas implements Runnable{
 
 		//generator.handleFood();
 	}
-	
+	/**
+	 * Method starting the game
+	 */
 	public synchronized void start() {
 		thread = new Thread(this);
 		thread.start();
 		running = true;
 	}
-	
+	/**
+	 * Method stopping the game
+	 */
 	public synchronized void stop() {
 		try {
 			thread.join();
@@ -63,7 +70,12 @@ public class Game extends Canvas implements Runnable{
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Game loop.
+	 * It uses the delta time system which means that the performance of the PC
+	 * won't affect the pace of the game.
+	 * The game is set to be working in 5 ticks per second.
+	 */
 	public void run() {
 		long lastTime = System.nanoTime();
 		double amountOfTics = 5.0;
@@ -90,7 +102,12 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 	}
-	
+	/**
+	 * A method specifying actions which will take place in a tick
+	 * In case that the game is in the Game GameState it will run the handleFood() and a tick() method of handler
+	 * In case that the game is in GameOver State it will check if the high score was beaten
+	 * and save it to the file
+	 */
 	private void tick() {
 		if(gameState == GameState.Game) {
 			generator.handleFood();
@@ -111,7 +128,10 @@ public class Game extends Canvas implements Runnable{
 			}
 		}
 	}
-	
+	/**
+	 * A method specifying what to render every frame.
+	 * It renders HUD when the game is in Game GameState and it renders GameOver screen in GameOver GameState
+	 */
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {
@@ -149,7 +169,9 @@ public class Game extends Canvas implements Runnable{
 		g.dispose();
 		bs.show();
 	}
-	
+	/**
+	 * A method that starts the new game.
+	 */
 	public void startNewGame() {
 		this.gameState = GameState.Game;
 		while (!this.handler.objects.isEmpty()) {

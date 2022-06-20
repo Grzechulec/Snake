@@ -2,7 +2,10 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-
+/**
+ * Class describing window
+ *
+ */
 public class Window extends Canvas {
 	
 	private static final long serialVersionUID = -8255319694373975038L;
@@ -19,6 +22,7 @@ public class Window extends Canvas {
 		frame.setLocationRelativeTo(null);
 		frame.add(game);
 		frame.setVisible(true);
+		frame.requestFocus();
 		game.start();
 	}
 }

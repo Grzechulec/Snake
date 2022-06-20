@@ -1,5 +1,11 @@
 import java.util.Random;
 
+/**
+ * 	Snake extending class.
+ * 	The purpose of this class is to describe enemy snake behavior.
+ *	Enemy snake goes to grab the nearest fruit but it also avoids running into obstacles.
+ */
+
 public class Enemy extends Snake {
 
 	private Handler handler;
@@ -15,7 +21,10 @@ public class Enemy extends Snake {
 		ai();
 		super.tick();
 	}
-	
+	/**
+	 * This method sets a direction of the snake in which he will go in the next tick.
+	 * The direction is calculated based on the nearest fruit and danger of death of the snake
+	 */
 	private void ai() {
 		GameObject fruit = findFruit();
 		this.setDirection(directionToFruit(fruit));
@@ -30,7 +39,11 @@ public class Enemy extends Snake {
 		if(direction == 5) direction = 1;
 		if(direction == 0) direction = 4;
 	}
-	
+	/**
+	 * This method returns the direction in which the snake has to go to grab the nearest fruit 
+	 * @param fruit the nearest fruit
+	 * @return direction to the nearest fruit
+	 */
 	private int directionToFruit(GameObject fruit) {
 		int outputDirection = 1;
 		if (fruit.getX() > this.getX()) outputDirection = 4; 
@@ -41,7 +54,10 @@ public class Enemy extends Snake {
 		}
 		return outputDirection;
 	}
-	
+	/**
+	 * This function finds the nearest existing fruit on the map
+	 * @return nearest fruit
+	 */
 	private GameObject findFruit() {
 		float distance = 999.0f;
 		GameObject outputFruit = new Tile(100, 100, ID.Body);
@@ -53,11 +69,18 @@ public class Enemy extends Snake {
 		}
 		return outputFruit;
 	}
-	
+	/**
+	 * This method calculates the distance from snake to the fruit
+	 * @param fruit
+	 * @return distance
+	 */
 	private float getDistanceFromFruit(GameObject fruit) {
 		return Math.abs(this.getX() - fruit.getX())+Math.abs(this.getY() - fruit.getY());
 	}
-	
+	/**
+	 * This method checks if it is safe to go in the set direction
+	 * @return true if it is safe
+	 */
 	private boolean directionValidation() {
 		if (getDirection() == 1 && getDistanceDown() == 1) return false;
 		else if (getDirection() == 2 && getDistanceLeft() == 1) return false;
@@ -65,7 +88,7 @@ public class Enemy extends Snake {
 		else if (getDirection() == 4 && getDistanceRight() == 1) return false;
 		else return true;
 	}
-	
+
 	private int getDistanceDown() {
 		int distance = Math.abs(26 - this.y);
 		for(GameObject object:this.handler.objects) {

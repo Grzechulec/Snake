@@ -1,6 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Class describing Tile, the part of snakes body
+ *
+ */
 public class Tile extends GameObject {
 
 	final int tileSize = 16;

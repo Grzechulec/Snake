@@ -1,6 +1,9 @@
 import java.awt.Color;
 import java.awt.Graphics;
-
+/**
+ * Class describing a fruit
+ *
+ */
 public class Fruit extends GameObject{
 
 	final int tileSize = 16;
